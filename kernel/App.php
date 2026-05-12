@@ -1,0 +1,27 @@
+<?php
+
+namespace App;
+
+use App\Kernel\Http\Request;
+use App\Kernel\Router\Router;
+
+class App
+{
+  private Container $container;
+
+  public function __constructor()
+  {
+    $this->container = new Container();
+  }
+
+  public function run(): void
+  {
+     $this->container
+     ->router
+     ->dispatch(
+      $this->container->request->uri(), 
+      $this->container->request->method()
+      );
+  }
+  
+}
