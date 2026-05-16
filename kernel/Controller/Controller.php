@@ -4,9 +4,11 @@ namespace App\Kernel\Controller;
 
 abstract class Controller 
 {
-  private View $view;
-  private Request $request;
-  private Redirect $redirect;
+  private ViewInterface $view;
+  private RequestInterface $request;
+  private RedirectInterface $redirect;
+  private SessionInterface $session;
+  private DatabaseInterface $database;
 
    public function view(string $name): void 
   {
@@ -18,17 +20,17 @@ abstract class Controller
     $this->view = $view;
   } 
 
-  public function request(): Request 
+  public function request(): RequestInterface 
   {
     return $this->request;
   }
 
-  public function setRequest(Request $request): void 
+  public function setRequest(RequestInterface $request): void 
   {
     $this->request = $request;
   }
 
-  public function setRedirect(Redirect $redirect): void 
+  public function setRedirect(RedirectInterface $redirect): void 
   {
     $this->redirect = $redirect;  
   }
@@ -37,4 +39,25 @@ abstract class Controller
   {
     return $this->redirect->to($url);
   }
+
+  public function session(): SessionInterface  
+  {
+    return $this->session;
+  }
+
+  public function setSession(SessionInterface $session): void 
+  {
+    $this->session = $session;  
+  }
+
+  public function db(): DatabaseInterface 
+  {
+    return $this->database;
+  }
+
+   public function setDataBase(DatabaseInterface $database): void 
+  {
+    $this->database = $database;
+  }
+
 }
