@@ -1,7 +1,7 @@
 <?php
 namespace App\Kernel\Router;
 
-class Router 
+class Router implements RouterInterface
 {
   private array $routes = [
     'GET' => [],
@@ -9,9 +9,11 @@ class Router
   ];
 
   public function __construct(
-    private View $view,
-    private Request $request,
-    private Redirect $redirect,
+    private ViewInterface $view,
+    private RequestInterface $request,
+    private RedirectInterface $redirect,
+    private SessionInterface $session,
+    private DatabaseInterface $database
   )
   {
     $this->initRoutes();
@@ -35,6 +37,8 @@ class Router
         call_user_func([$controller, 'setView'], $this->view);
         call_user_func([$controller, 'setRequest'], $this->request);
         call_user_func([$controller, 'setRedirect'], $this->redirect);
+        call_user_func([$controller, 'setSession'], $this->session);
+        call_user_func([$controller, 'setDataBase'], $this->database);
 
         call_user_func([$controller, $action]);
       } else {

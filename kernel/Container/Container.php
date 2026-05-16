@@ -4,14 +4,21 @@ namespace App\Kernel\Container;
 
 class Container
 {
-  public readonly Request $request;
-  public readonly Request $router;
+  public readonly RequestInterface $request;
 
-  public readonly View $view;
+  public readonly RequestInterface $router;
 
-  public readonly Validator $validator;
+  public readonly ViewInterface $view;
 
-  public readonly Redirect $redirect;
+  public readonly ValidatorInterface $validator;
+
+  public readonly RedirectInterface $redirect;
+
+  public readonly SessionInterface $session;
+
+  public readonly ConfigInterface $config;
+
+  public readonly DatabaseInterface $database;
 
   public function __constructor()
   {
@@ -20,10 +27,13 @@ class Container
 
   private function registerServices() {
     $this-> request = Request::createFromGlobals();
-    $this-> view = new View();
     $this-> validator = new Validator();
     $this->request->setValidator($this->validator);
     $this-> redirect = new Redirect();
-    $this-> router = new Router($this->view, $this->request, $this->redirect);
+    $this-> session = new Session();
+    $this-> view = new View($this->session);
+    $this-> config = new Config();
+    $this-> database = new Database($this->config);
+    $this-> router = new Router($this->view, $this->request, $this->redirect, $this->database);
   }
 }

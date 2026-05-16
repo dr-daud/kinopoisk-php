@@ -2,14 +2,14 @@
 
 namespace App\Kernel\Http;
 
-class Request 
+class Request implements RequestInterface
 { 
-  private Validator $validator;
+  private ValidatorInterface $validator;
 
   public function __construct(
     public readonly array $get,
     public readonly array $post,
-    public readonly array $server,
+    public readonly array $server,  
     public readonly array $files,
     public readonly array $cookies,
   ){ }
@@ -34,14 +34,14 @@ class Request
     return $this->post[$key] ?? $this->get[$key] ?? $default  ;
   }
 
-  public function setValidator(Validator $validator): void
+  public function setValidator(ValidatorInterface $validator): void
   {
     $this->validator = $validator;
   }
 
   public function validate(array $rules): bool 
   {
-    $data = [] 
+    $data = [];
     foreach ($rules as $field => $rule) {
       $data[$field] = $this->input($field);
     }
