@@ -20,6 +20,8 @@ class Container
 
   public readonly DatabaseInterface $database;
 
+  public readonly AuthInterface $auth;
+
   public function __constructor()
   {
       $this->registerServices();
@@ -34,6 +36,13 @@ class Container
     $this-> view = new View($this->session);
     $this-> config = new Config();
     $this-> database = new Database($this->config);
-    $this-> router = new Router($this->view, $this->request, $this->redirect, $this->database);
+    $this-> auth = new Auth($this->database, $this->session, $this->config);
+    $this-> router = new Router(
+      $this->view, 
+      $this->request, 
+      $this->redirect, 
+      $this->database,
+      $this->auth
+      );
   }
 }

@@ -9,6 +9,7 @@ abstract class Controller
   private RedirectInterface $redirect;
   private SessionInterface $session;
   private DatabaseInterface $database;
+  private AuthInterface $auth;
 
    public function view(string $name): void 
   {
@@ -59,5 +60,16 @@ abstract class Controller
   {
     $this->database = $database;
   }
+
+  public function auth(): AuthInterface 
+  {
+    return $this->auth;
+  }
+
+   public function setAuth(AuthInterface $auth): void 
+  {
+    $this->auth = $auth;
+  }
+
 
 }

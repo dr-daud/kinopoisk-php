@@ -14,11 +14,39 @@ class Database implements DatabaseInterface
   } 
 
   public function insert(string $table, array $data): int|false
-  {
+  { 
     $field = array_keys($data);
 
     $columns = implode(', ', $field);
     $binds = implode(', ', array_map(fn($field) => ":$field", $fields));
+
+    $sql = "INSERT INTO $table ($columns) VALUES ($binds)";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    try {
+      $stmt->execute($data);
+    } catch (\PDOException $exception) {
+      return false;
+    }
+
+    return(int) $this->pdo->lastInsertId();
+  }
+
+    public function first(string $table, array $conditions = []): ?array
+  {
+    $where = '';
+
+    if(count($conditions) > 0) {
+      $where = 'WHERE ' . implode(' AND ', array_map(fn($field) => "$field = :$field", array_keys($conditions)));
+    }
+
+    $sql = "SELECT * FROM $table $where LIMIT 1";
+
+    $stmt-> $this->pdo->prepare($sql);
+
+    $stmt->execute($conditions);
+     
   }
 
   private function connect()
@@ -40,4 +68,5 @@ class Database implements DatabaseInterface
       exit("Database connection failed: {$exception->getMessage()}");
     }
   }
+
 }

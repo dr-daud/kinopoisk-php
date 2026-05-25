@@ -12,13 +12,14 @@
   <form action="/admin/movies/addw" method="post">
     <p>Name</p>
     <input type="text" name="name">
-    <?php if($session->has('name')) ?>
+    <?php if($session->has('name')) { ?>
       <ul>
       <?php foreach ($session->getFlash ('name') as $error) { ?>
         <li style='color: red;'><?php echo $error ?></li>
         <?php } ?>
       </ul> 
+    <?php } ?>
     <button type="submit">Add</button>
   </form>
 <?php $view->component('end') ?>
- 
+  
