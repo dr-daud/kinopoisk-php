@@ -1,4 +1,4 @@
-  <?php
+<?php
 
   namespace App\Controllers;
 
@@ -13,6 +13,13 @@
 
     public function login(): void
     {
-      $this->auth();
+     $email = $this->request->input('email');
+     $password = $this->request->input('password');
+    }
+
+    public function logout()
+    {
+      $this->auth()->logout();
+      return $this->redirect('/login');
     }
   }

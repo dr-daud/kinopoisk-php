@@ -34,13 +34,23 @@ public function __construct(
     return $this->session->has($this->sessionField());
   }
 
-  public function user(): ?array
+  public function user(): ?User
   {
     if (!$this->check()) {
       return null;
     }
 
-    return $this->db->first($this->table(), ['id' => $this->session->get($this->sessionField())]);
+     $user = $this->db->first($this->table(), ['id' => $this->session->get($this->sessionField())]);
+
+      if ($user) {
+        return new User(
+          $user['id'],
+          $user[$this->username()],
+          $user[$this->password()]
+        );
+      }
+
+      return null;
   }
 
     public function logout (): void
