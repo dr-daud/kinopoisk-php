@@ -9,9 +9,11 @@
 <?php $view->component('start') ?>
   <h1>add movie page</h1>
 
-  <form action="/admin/movies/addw" method="post">
+  <form action="/admin/movies/addw" method="post" enctype="multipart/form-data">
     <p>Name</p>
-    <input type="text" name="name">
+    <div>
+      <input type="text" name="name">
+    </div>
     <?php if($session->has('name')) { ?>
       <ul>
       <?php foreach ($session->getFlash ('name') as $error) { ?>
@@ -19,6 +21,9 @@
         <?php } ?>
       </ul> 
     <?php } ?>
+    <div>
+      <input type="file" name="image">
+    </div>
     <button type="submit">Add</button>
   </form>
 <?php $view->component('end') ?>
