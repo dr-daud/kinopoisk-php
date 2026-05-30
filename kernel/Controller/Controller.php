@@ -10,6 +10,7 @@ abstract class Controller
   private SessionInterface $session;
   private DatabaseInterface $database;
   private AuthInterface $auth;
+  private StorageInterface $storage;
 
    public function view(string $name): void 
   {
@@ -69,6 +70,16 @@ abstract class Controller
    public function setAuth(AuthInterface $auth): void 
   {
     $this->auth = $auth;
+  }
+
+  public function storage(): StorageInterface 
+  {
+    return $this->storage;
+  }
+
+   public function setStorage(StorageInterface $storage): void 
+  {
+    $this->storage = $storage;
   }
 
 

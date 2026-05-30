@@ -28,7 +28,7 @@ class UploadedFile
     $filePath = "$storagePath/$fileName";
 
     if(move_uploaded_file($this->tmpName, $filePath)){
-      return "storage/$path/$fileName";
+      return "$path/$fileName";
     }
 
     return false;
