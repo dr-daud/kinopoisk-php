@@ -11,14 +11,18 @@
       $this->view('login');
     }
 
-    public function login(): void
+    public function login()
     {
      $email = $this->request->input('email');
      $password = $this->request->input('password');
 
-     $this->auth()->attempt($email, $password);
+     if($this->auth()->attempt($email, $password)) {
+       return $this->redirect('/');
+     }
 
-     $this->redirect('/home');
+     $this->session()->flash('error', 'Неверный email или пароль');
+
+     $this->redirect('/login');
     }
 
     public function logout()

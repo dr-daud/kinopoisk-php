@@ -14,8 +14,10 @@ class RegisterContoller extends Controller
   public function register(): void
   {
     $validation = $this->request()->validate([
+      'name' => ['required', 'max:255'],
       'email' => ['required', 'email'],
-      'password' => ['required', 'min:8'],
+      'password' => ['required', 'min:8', 'confirmed'],
+      'password_confirmation' => ['required', 'min:8'],
     ]);
 
     if(! $validate) {
@@ -25,9 +27,12 @@ class RegisterContoller extends Controller
     $this->redirect('register');
   }
 
-  $userId = $this->db()->insert('users', [
-    'email' => $this->request()->input('email'),
-    'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
-  ]);
+    $this->db()->insert('users', [
+      'name' => $this->request()->input('name'),
+      'email' => $this->request()->input('email'),
+      'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
+    ]);
+
+    $this->redirect('/');
   }
 }
