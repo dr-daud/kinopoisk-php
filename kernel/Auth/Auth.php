@@ -45,6 +45,7 @@ public function __construct(
       if ($user) {
         return new User(
           $user['id'],
+          $user['name'],
           $user[$this->username()],
           $user[$this->password()]
         );
