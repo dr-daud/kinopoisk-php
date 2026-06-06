@@ -79,4 +79,9 @@ public function __construct(
       return $this->config->get('auth.session_field', 'user_id' );
   }
 
+    public function id(): ?int
+    {
+        return $this->session->get($this->sessionField());
+    }
+
 } 

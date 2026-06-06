@@ -8,7 +8,7 @@
   {
     public function index(): void
     {
-      $this->view('login');
+      $this->view(name: 'login', title: 'Вход');
     }
 
     public function login()

@@ -2,12 +2,17 @@
 
 namespace App\Controllers;
 
-class HomeController
-{
-  public function index():void
-  {
-    $view = new View();
+use App\Kernel\Controller\Controller;
+use App\Services\MovieService;
 
-    $view->page('home');
-  }
+class HomeController extends Controller
+{
+    public function index(): void
+    {
+        $movies = new MovieService($this->db());
+
+        $this->view('home', [
+            'movies' => $movies->new(),
+        ], 'Главная страница');
+    }
 }

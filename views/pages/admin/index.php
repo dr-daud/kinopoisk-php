@@ -68,4 +68,4 @@
     </div>
 </main>
 
-<?php $view->component('end'); ?>
+<?php $view->component('end'); ?> 

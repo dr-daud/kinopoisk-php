@@ -5,16 +5,20 @@ namespace App\Kernel\View;
 class View implements ViewInterface
  {
 
+  private string $title;
+
   public function __construct
   (
     private SessionInterface $session,
-    private AuthInterface $auth
+    private AuthInterface $auth,
+    private StorageInterface $storage
   )
   {
   }
 
-  public function page(string $name, array $data = []):void 
+  public function page(string $name, array $data = [], string $title = ''):void 
   {
+    $this->title = $title;
     $viewPath = APP_PATH. "/views/pages/$name.php";
 
     if(!file_exists($viewPath)) {
@@ -26,7 +30,7 @@ class View implements ViewInterface
     include_once $viewPath;
   }
  
-    public function component(string $name):void 
+    public function component(string $name, array $data = []):void 
   {
     $componentPath = APP_PATH. "/views/components/$name.php";
 
@@ -35,9 +39,9 @@ class View implements ViewInterface
       return;
     }
 
-    extract($this->defaultData()); 
+    extract(array_merge($this->defaultData(), $data)); 
 
-    include_once $componentPath;
+    include $componentPath;
   }
  
   private function defaultData():array {
@@ -45,6 +49,12 @@ class View implements ViewInterface
       'view'=>$this,
       'session'=>$this->session,
       'auth'=>$this->auth,
+      'storage'=>$this->storage,
     ];
+  }
+
+  public function title(): string
+  {
+    return $this->title;
   }
 }
