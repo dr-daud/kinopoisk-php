@@ -103,6 +103,15 @@ class MovieController extends Controller
         ], "Фильм - {$movie->name()}");
     }
 
+    public function best(): void
+    {
+        $movies = $this->service()->all();
+
+        $this->view('best', [
+            'movies' => $movies,
+        ], 'Лучшие фильмы');
+    }
+
     private function service(): MovieService
     {
         if (! isset($this->service)) {

@@ -2,9 +2,7 @@
 
 namespace App\Kernel\Upload;
 
-use App\Kernel\Upload\UploadedFileInterface;
-
-class UploadedFile
+class UploadedFile implements UploadedFileInterface
 {
   public function __construct(
     private readonly string $name,

@@ -3,6 +3,9 @@
 namespace App\Kernel\Auth;
 
 use App\Kernel\Auth\AuthInterface;
+use App\Kernel\Database\DatabaseInterface;
+use App\Kernel\Session\SessionInterface;
+use App\Kernel\Config\ConfigInterface;
 
 class Auth implements AuthInterface
 {

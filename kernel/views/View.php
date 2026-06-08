@@ -1,6 +1,11 @@
 <?php
 
-namespace App\Kernel\View;
+namespace App\Kernel\Views;
+
+use App\Kernel\Session\SessionInterface;
+use App\Kernel\Auth\AuthInterface;
+use App\Kernel\Storage\StorageInterface;
+use App\Kernel\Exceptions\ViewNotFoundException;
 
 class View implements ViewInterface
  {

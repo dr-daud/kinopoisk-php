@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Kernel\Http;
+namespace App\Kernel\Router;
 
-interface RequestInterface 
+interface RouterInterface 
 {
    public function dispatch(string $uri, string $method): void;
 }

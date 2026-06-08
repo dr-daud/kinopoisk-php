@@ -2,6 +2,9 @@
 
 namespace App\Kernel\Http;
 
+use App\Kernel\Upload\UploadedFileInterface;
+use App\Kernel\Validator\ValidatorInterface;
+
 interface RequestInterface 
 {
   public static function createFromGlobals(): static;

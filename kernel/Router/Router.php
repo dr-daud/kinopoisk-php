@@ -1,6 +1,14 @@
 <?php
 namespace App\Kernel\Router;
 
+use App\Kernel\Views\ViewInterface;
+use App\Kernel\Http\RequestInterface;
+use App\Kernel\Http\RedirectInterface;
+use App\Kernel\Session\SessionInterface;
+use App\Kernel\Database\DatabaseInterface;
+use App\Kernel\Auth\AuthInterface;
+use App\Kernel\Storage\StorageInterface;
+
 class Router implements RouterInterface
 {
   private array $routes = [
@@ -24,13 +32,13 @@ class Router implements RouterInterface
   public function dispatch(string $uri, string $method): void
 
   {
-      $route = this->findRoute($uri, $method);
+      $route = $this->findRoute($uri, $method);
 
       if(! $route) {
        $this->notFound();
       }
 
-      if(route->hasMiddlewares()){
+      if($route->hasMiddlewares()){
         foreach($route->getMiddlewares() as $middleware){
           /** @var Middleware $middlewareInstance */
           $middlewareInstance = new $middleware($this->auth, $this->redirect);
@@ -77,7 +85,7 @@ class Router implements RouterInterface
     $routes = $this->getRoutes();
 
     foreach ($routes as $route) {
-      $this->routes[$routes->getMethod()][$route->getUri()] = $route;
+      $this->routes[$route->getMethod()][$route->getUri()] = $route;
     }
 
   }

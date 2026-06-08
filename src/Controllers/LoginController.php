@@ -13,14 +13,14 @@
 
     public function login()
     {
-     $email = $this->request->input('email');
-     $password = $this->request->input('password');
+     $email = $this->request()->input('email');
+     $password = $this->request()->input('password');
 
      if($this->auth()->attempt($email, $password)) {
        return $this->redirect('/');
      }
 
-     $this->session()->flash('error', 'Неверный email или пароль');
+     $this->session()->set('error', 'Неверный email или пароль');
 
      $this->redirect('/login');
     }

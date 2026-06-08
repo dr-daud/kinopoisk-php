@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel\Http;
+namespace App\Kernel\Session;
 
 interface SessionInterface 
 {

@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Kernel\Controller\Controller;
 use App\Kernel\Router\RouterInterface;
 
-class RegisterContoller extends Controller
+class RegisterController extends Controller
 {
   public function index(): void
   {
@@ -20,11 +21,11 @@ class RegisterContoller extends Controller
       'password_confirmation' => ['required', 'min:8'],
     ]);
 
-    if(! $validate) {
+    if(! $validation) {
        foreach($this->request()->errors() as $field => $errors) {
         $this->session()->set($field , $errors);
     }
-    $this->redirect('register');
+    $this->redirect('/register');
   }
 
     $this->db()->insert('users', [

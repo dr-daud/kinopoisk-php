@@ -20,14 +20,14 @@ use App\Kernel\Storage\Storage;
 use App\Kernel\Storage\StorageInterface;
 use App\Kernel\Validator\Validator;
 use App\Kernel\Validator\ValidatorInterface;
-use App\Kernel\View\View;
-use App\Kernel\View\ViewInterface;
+use App\Kernel\Views\View;
+use App\Kernel\Views\ViewInterface;
 
 class Container
 {
   public readonly RequestInterface $request;
 
-  public readonly RequestInterface $router;
+  public readonly RouterInterface $router;
 
   public readonly ViewInterface $view;
 
@@ -45,7 +45,7 @@ class Container
 
   public readonly StorageInterface $storage;
 
-  public function __constructor()
+  public function __construct()
   {
       $this->registerServices();
   }
@@ -65,6 +65,7 @@ class Container
       $this->view, 
       $this->request, 
       $this->redirect, 
+      $this->session,
       $this->database,
       $this->auth,
       $this->storage

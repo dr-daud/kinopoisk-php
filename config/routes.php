@@ -2,11 +2,18 @@
 
 use App\Controllers\HomeController;
 use App\Controllers\MovieController;
+use App\Controllers\RegisterController;
+use App\Controllers\LoginController;
+use App\Controllers\AdminController;
+use App\Controllers\CategoryController;
+use App\Controllers\ReviewController;
 use App\Kernel\Router\Route;
 use App\Middleware\AuthMiddleware;
 
 return [
+  Route::get('/', [HomeController::class, 'index']),
   Route::get('/home', [HomeController::class, 'index']),
+  Route::get('/best', [MovieController::class, 'best']),
   Route::get('/register', [RegisterController::class, 'index']),
   Route::post('/register', [RegisterController::class, 'register']),
   Route::get('/login', [LoginController::class, 'index']),

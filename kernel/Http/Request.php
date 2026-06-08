@@ -2,6 +2,10 @@
 
 namespace App\Kernel\Http;
 
+use App\Kernel\Upload\UploadedFile;
+use App\Kernel\Upload\UploadedFileInterface;
+use App\Kernel\Validator\ValidatorInterface;
+
 class Request implements RequestInterface
 { 
   private ValidatorInterface $validator;
